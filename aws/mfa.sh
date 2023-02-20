@@ -7,7 +7,6 @@
 
 # To Run(Including source variable): `$ . ./connect-mfa.sh`
 
-
 # Dependencies
 # - jq
 
@@ -17,9 +16,8 @@ ARN_VALUE=arn:aws:iam::*:mfa/*
 AWS_REGION=ap-southeast-1
 PROFILE=mfa-profile
 
-echo Enter Auth Code:
-read TOKEN_CODE
 
+read -p "Enter Auth Code: " TOKEN_CODE
 
 read -r -d '' OUTPUT << EOM
 $(aws sts get-session-token --serial-number $ARN_VALUE --token-code $TOKEN_CODE)
