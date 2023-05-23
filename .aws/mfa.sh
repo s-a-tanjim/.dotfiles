@@ -5,10 +5,11 @@
 #################################################
 
 
-# To Run(Including source variable): `$ . ./connect-mfa.sh`
+# To Run(with sourcing variable): `$ . ./connect-mfa.sh`
 
 # Dependencies
 # - jq
+# - aws-cli
 
 
 ####   SET ENV VARIABLES!   ####
@@ -45,4 +46,3 @@ aws configure set aws_session_token $AWS_SESSION_TOKEN --profile $PROFILE
 
 echo 'AWS Profile:'
 aws configure list-profiles
-
