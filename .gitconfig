@@ -1,0 +1,17 @@
+[user]
+  email = shoebtanjim@outlook.com
+  name = s-a-tanjim
+  signingkey = C1D8D1BDB922E639
+
+[alias]
+  lt = log --graph --oneline --decorate
+  ls = log --source --graph --pretty=format:'%C(yellow)%h %Creset[%ad] %s %C(green)[%an]%C(red)%d'
+  ll = log --source --stat -p
+  br = branch
+  co = checkout
+  cl = clone
+  ct = commit
+
+
+[commit]
+  gpgsign = true
