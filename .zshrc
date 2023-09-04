@@ -1,3 +1,4 @@
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -72,8 +73,12 @@ HIST_STAMPS="mm/dd/yyyy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(git aws tmux)
-SHOW_AWS_PROMPT=false
+plugins=(git tmux zsh-autosuggestions zsh-syntax-highlighting)
+
+if [ -x aws ]; then
+  plugins+=(aws)
+  SHOW_AWS_PROMPT=false
+fi
 
 ZSH_TMUX_AUTOSTART=true
 
@@ -105,5 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-
-source $HOME/.bash_aliases
+if [[ -f "$HOME/.bash_aliases" ]]; then
+  source $HOME/.bash_aliases
+fi
