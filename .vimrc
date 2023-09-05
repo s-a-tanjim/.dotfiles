@@ -1,7 +1,11 @@
-"syntax on"
-packadd! dracula
+syntax on
 syntax enable
-colorscheme dracula
+
+" Dracula
+" packadd! dracula
+" colorscheme dracula
+
+set encoding=UTF-8
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
@@ -35,12 +39,13 @@ set expandtab
 
 " Do not save backup files.
 set nobackup
+set nowritebackup
 
 " Do not let cursor scroll below or above N number of lines when scrolling.
 set scrolloff=10
 
-" Do not wrap lines. Allow long lines to extend as far as the line goes.
-set nowrap
+" Wrap lines.
+set wrap
 
 " While searching though a file incrementally highlight matching characters as you type.
 set incsearch
@@ -66,6 +71,25 @@ set hlsearch
 
 " Set the commands to save in history default number is 20.
 set history=1000
+
+set ttyfast
+set cmdheight=1
+set updatetime=300
+set signcolumn=yes
+set shortmess+=c
+set wildmenu
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgreen
+set autoread
+set autowrite
+set autoindent
+set cindent
+set smartindent
+set smarttab
+set mouse=a
+set softtabstop=2
+set noerrorbells
+set exrc
 
 
 

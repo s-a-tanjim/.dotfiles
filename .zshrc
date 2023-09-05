@@ -1,4 +1,3 @@
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -75,12 +74,16 @@ HIST_STAMPS="mm/dd/yyyy"
 # plugins=(git)
 plugins=(git tmux zsh-autosuggestions zsh-syntax-highlighting)
 
-if [ -x aws ]; then
+if [ -x "$(command -v aws)" ]; then
   plugins+=(aws)
   SHOW_AWS_PROMPT=false
 fi
+if [ -x "$(command -v kubectl)" ]; then
+  plugins+=(kubectl-autocomplete)
+fi
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=cyan"
 
 source $ZSH/oh-my-zsh.sh
 
