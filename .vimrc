@@ -26,7 +26,7 @@ set number
 set cursorline
 
 " Highlight cursor line underneath the cursor vertically.
-"set cursorcolumn
+" set cursorcolumn
 
 " Set shift width to 2 spaces.
 set shiftwidth=2
@@ -72,6 +72,13 @@ set hlsearch
 " Set the commands to save in history default number is 20.
 set history=1000
 
+" Y to copy to clipboard, and lowercase y won't be affected
+set clipboard=unnamedplus
+" noremap <Leader>y "*y
+" noremap <Leader>p "*p
+" noremap <Leader>Y "+y
+" noremap <Leader>P "+p
+
 set ttyfast
 set cmdheight=1
 set updatetime=300
@@ -106,6 +113,7 @@ augroup END
 
 
 " STATUS LINE ------------------------------------------------------------ {{{
+"
 
 " Clear status line when vimrc is reloaded.
 set statusline=
@@ -123,3 +131,32 @@ set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 set laststatus=2
 
 " }}}
+
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Add Plugin here
+
+Plugin 'scrooloose/nerdtree'
+
+" Plugin ends
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+let NERDTreeShowHidden=1
+
