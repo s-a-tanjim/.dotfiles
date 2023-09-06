@@ -4,6 +4,7 @@ syntax enable
 " Dracula
 " packadd! dracula
 " colorscheme dracula
+colorscheme lucario
 
 set encoding=UTF-8
 
@@ -159,3 +160,4 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
+
