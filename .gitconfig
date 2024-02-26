@@ -8,10 +8,30 @@
   ls = log --source --graph --pretty=format:'%C(yellow)%h %Creset[%ad] %s %C(green)[%an]%C(red)%d'
   ll = log --source --stat -p
   br = branch
+  ba = branch -av
   co = checkout
   cl = clone
   ct = commit
+  st = status -sb
+  df = diff
+  dp = diff --stat
+  ds = diff --staged
+  dw = diff --word-diff
+  la = config --get-regexp alias
+  wt = worktree
+  cnt = rev-list --count HEAD
+  count = rev-list --count
+  fpush = push --force-with-lease
+  subup = submodule update --init --recursive
+  staash = stash --all
 
 
 [commit]
   gpgsign = true
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[rerere]
+  enabled = true
+
