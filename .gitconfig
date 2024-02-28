@@ -34,4 +34,7 @@
   sort = -committerdate
 [rerere]
   enabled = true
+[blame]
+  coloring = repeatedLines
+  date = human
 
