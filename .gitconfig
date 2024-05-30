@@ -6,7 +6,9 @@
 [alias]
   lt = log --graph --oneline --decorate
   ls = log --source --graph --pretty=format:'%C(yellow)%h %Creset[%ad] %s %C(green)[%an]%C(red)%d'
+  lsa = log --source --graph --pretty=format:'%C(yellow)%h %Creset[%ad] %s %C(green)[%an]%C(red)%d' --all
   ll = log --source --stat -p
+  pl = pull
   br = branch
   ba = branch -av
   co = checkout
