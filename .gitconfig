@@ -12,6 +12,7 @@
   br = branch
   ba = branch -av
   co = checkout
+  cp = cherry-pick
   cl = clone
   ct = commit
   st = status -sb
@@ -27,6 +28,8 @@
   subup = submodule update --init --recursive
   staash = stash --all
 
+[credential]
+  helper = store
 
 [commit]
   gpgsign = true
@@ -40,3 +43,20 @@
   coloring = repeatedLines
   date = human
 
+[core]
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  line-numbers = true
+  side-by-side = true
+  hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default

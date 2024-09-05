@@ -12,3 +12,5 @@
 - Color Scheme: https://github.com/raphamorim/lucario
 - Plugin Manager: `git clone --depth 1 https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 
+# Git
+- Delta: https://dandavison.github.io/delta/introduction.html
