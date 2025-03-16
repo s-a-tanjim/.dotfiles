@@ -18,3 +18,8 @@ ln -s ~/<base-path>/dotfiles/nvim ~/.config/nvim
 # References
 - https://github.com/nvim-lua/kickstart.nvim
 
+# TODO
+Add LSP
+- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v4.x/doc/md/guides/lazy-loading-with-lazy-nvim.md
+- https://github.com/williamboman/mason.nvim
+
