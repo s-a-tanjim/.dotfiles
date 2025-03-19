@@ -19,3 +19,11 @@ vim.keymap.set("n", "<leader>n", ":bn<cr>")
 vim.keymap.set("n", "<leader>p", ":bp<cr>")
 vim.keymap.set("n", "<leader>x", ":bd<cr>")
 
+-- Split screen
+vim.keymap.set("n", "|", ":vsplit<CR>", { noremap = true, silent = true }) -- Vertical Split
+vim.keymap.set("n", "-", ":split<CR>", { noremap = true, silent = true }) -- Horizontal Split
+vim.keymap.set("n", "<C-Left>",  ":vertical resize -5<CR>", { noremap = true, silent = true })  -- Shrink width
+vim.keymap.set("n", "<C-Right>", ":vertical resize +5<CR>", { noremap = true, silent = true })  -- Increase width
+vim.keymap.set("n", "<C-Up>",    ":resize +5<CR>", { noremap = true, silent = true })  -- Increase height
+vim.keymap.set("n", "<C-Down>",  ":resize -5<CR>", { noremap = true, silent = true })  -- Decrease height
+

@@ -18,6 +18,11 @@ ln -s ~/<base-path>/dotfiles/nvim ~/.config/nvim
 # References
 - https://github.com/nvim-lua/kickstart.nvim
 
+# Note
+- `noremap = true`: Prevents recursive mappings
+- `silent = true`: Prevents command output from showing in the command line
+
+
 # TODO
 Add LSP
 - https://github.com/VonHeikemen/lsp-zero.nvim/blob/v4.x/doc/md/guides/lazy-loading-with-lazy-nvim.md

@@ -17,5 +17,5 @@ require('plugins.bufferline')
 -- Load colors
 require('colors')
 
--- Key binds of plugins
-require('plugins.keymaps')
+-- Load post config of plugins
+require('plugins.post-config')
