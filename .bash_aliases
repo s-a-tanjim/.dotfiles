@@ -9,7 +9,8 @@ alias cls='clear'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+alias ips='ip -br -c a'
+alias myip='echo $(curl -s ifconfig.me)'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

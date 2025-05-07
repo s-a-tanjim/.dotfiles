@@ -12,5 +12,7 @@
 - Color Scheme: https://github.com/raphamorim/lucario
 - Plugin Manager: `git clone --depth 1 https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 
+# NVIM
+- Install nvim: https://github.com/neovim/neovim/blob/master/INSTALL.md
 # Git
 - Delta: https://dandavison.github.io/delta/introduction.html
