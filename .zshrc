@@ -130,3 +130,5 @@ fi
 
 # Load bash functions
 [[ ! -f ~/.bash_functions ]] || source ~/.bash_functions
+
+export GPG_TTY=$(tty)

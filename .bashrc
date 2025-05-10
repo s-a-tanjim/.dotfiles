@@ -121,4 +121,6 @@ fi
 PROMPT_DIRTRIM=1
 
 # Kubernetes
-source <(kubectl completion bash | sed s/kubectl/kb/g)
+if command -v kubectl &> /dev/null; then
+    source <(kubectl completion bash | sed s/kubectl/kb/g)
+fi

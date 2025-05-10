@@ -1,7 +1,7 @@
 [user]
   email = shoebtanjim@outlook.com
   name = s-a-tanjim
-  signingkey = C1D8D1BDB922E639
+  signingkey = FBFA9DA733EB0E7C
 
 [alias]
   lt = log --graph --oneline --decorate
