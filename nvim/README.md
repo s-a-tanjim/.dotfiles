@@ -17,6 +17,7 @@ ln -s ~/<base-path>/dotfiles/nvim ~/.config/nvim
 
 # References
 - https://github.com/nvim-lua/kickstart.nvim
+- https://github.com/rockerBOO/awesome-neovim
 
 # Note
 - `noremap = true`: Prevents recursive mappings
