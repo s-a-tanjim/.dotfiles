@@ -4,7 +4,7 @@
 
 # Basics
 alias py2='python2'
-alias py3='python3'
+alias py='python3'
 alias cls='clear'
 alias ll='ls -alF'
 alias la='ls -A'

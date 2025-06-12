@@ -1,0 +1,57 @@
+{
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "security.workspace.trust.untrustedFiles": "open",
+    "[json]": {
+    
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    "workbench.editorAssociations": {
+        "{git,gitlens,conflictResolution,vscode-local-history}:/**/*.tc.json": "default",
+        "{git,gitlens,conflictResolution,vscode-local-history}:/**/*.{asl.json,asl.yaml,asl.yml}": "default",
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.pdf": "default",
+        "*.ttf": "default"
+    },
+    "editor.wordWrap": "on",
+    "editor.fontSize": 15,
+    "editor.renderWhitespace": "all",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "files.associations": {
+        "*.env": "properties"
+    },
+    "terminal.integrated.env.linux": {},
+    "explorer.confirmDelete": false,
+    "prisma.showPrismaDataPlatformNotification": false,
+    "helm-intellisense.customValueFileNames": [
+        "values.yaml"
+    ],
+    "yaml.customTags": [],
+    "aws.telemetry": false,
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.defaultProfile.windows": "Ubuntu-24.04 (WSL)",
+    "terminal.integrated.profiles.windows": {
+        "Ubuntu-24.04 (WSL)": {
+            "path": "C:\\Windows\\System32\\wsl.exe",
+            "args": [
+                "-d",
+                "Ubuntu-24.04",
+                "--exec",
+                "bash",
+                "-c",
+                "WORKSPACE_NAME=$(basename \"$PWD\" | sed 's/[^a-zA-Z0-9_-]/_/g'); exec tmux new-session -A -s \"vscode-$WORKSPACE_NAME\""
+            ],
+            "icon": "terminal-bash"
+        }
+    }
+}
