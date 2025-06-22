@@ -90,7 +90,8 @@ if [ -x "$(command -v kubectl)" ]; then
   plugins+=(kubectl-autocomplete)
 fi
 
-ZSH_TMUX_AUTOSTART=true
+# tmux plugin automatically start or attach to a tmux session when your shell starts
+# ZSH_TMUX_AUTOSTART=true
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=cyan"
 
 source $ZSH/oh-my-zsh.sh
@@ -132,3 +133,9 @@ fi
 [[ ! -f ~/.bash_functions ]] || source ~/.bash_functions
 
 export GPG_TTY=$(tty)
+. "$HOME/.local/bin/env"
+
+# Load nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -1,0 +1,3 @@
+# In windows, "git config --global --add safe.directory '*'" is required to avoid warnings in vscode extension
+[safe]
+  directory = *
