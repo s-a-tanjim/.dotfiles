@@ -47,9 +47,7 @@
                 "-d",
                 "Ubuntu-24.04",
                 "--exec",
-                "bash",
-                "-c",
-                "WORKSPACE_NAME=$(basename \"$PWD\" | sed 's/[^a-zA-Z0-9_-]/_/g'); exec tmux new-session -A -s \"vscode-$WORKSPACE_NAME\""
+                "zsh"
             ],
             "icon": "terminal-bash"
         }
