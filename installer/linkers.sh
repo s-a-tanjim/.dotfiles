@@ -35,3 +35,6 @@ create_link_with_backup "./.gitconfig"
 create_link_with_backup "./.p10k.zsh"
 create_link_with_backup "./.vimrc"
 create_link_with_backup "./.bash_functions"
+
+# Setup nvim config directory
+ln -s "$PWD/nvim" ~/.config/nvim
