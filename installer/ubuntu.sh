@@ -29,3 +29,7 @@ git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone --depth 1 https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 
+if [ -x "$(command -v kubectl)" ]; then
+  mkdir -p ~/.oh-my-zsh/custom/plugins/kubectl-autocomplete/
+  kubectl completion zsh > ~/.oh-my-zsh/custom/plugins/kubectl-autocomplete/kubectl-autocomplete.plugin.zsh
+fi
