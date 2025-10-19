@@ -13,6 +13,11 @@ check_and_install_dep() {
   fi
 }
 
+check_and_install_dep build-essential
+check_and_install_dep git
+check_and_install_dep curl
+check_and_install_dep htop
+check_and_install_dep net-tools
 check_and_install_dep zsh
 check_and_install_dep xclip
 check_and_install_dep tmux

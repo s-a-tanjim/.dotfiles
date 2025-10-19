@@ -132,8 +132,10 @@ fi
 # Load bash functions
 [[ ! -f ~/.bash_functions ]] || source ~/.bash_functions
 
+autoload -U +X bashcompinit && bashcompinit
+
 export GPG_TTY=$(tty)
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
@@ -142,3 +144,18 @@ export NVM_DIR="$HOME/.nvm"
 
 # Add neovim to path
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+# Add terraform autocompletion
+if command -v terraform >/dev/null 2>&1; then
+  complete -o nospace -C "$(command -v terraform)" terraform
+fi
+
+
+# add Pulumi to the PATH
+if command -v pulumi >/dev/null 2>&1; then
+  pulumi_bin_dir="$(dirname "$(command -v pulumi)")"
+  case ":$PATH:" in
+    *":$pulumi_bin_dir:"*) ;;  # already in PATH
+    *) export PATH="$PATH:$pulumi_bin_dir" ;;
+  esac
+fi
