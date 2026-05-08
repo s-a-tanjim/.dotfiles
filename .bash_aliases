@@ -11,6 +11,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ips='ip -br -c a'
 alias myip='echo $(curl -s ifconfig.me)'
+alias myip4='echo $(curl -4 -s ifconfig.me)'
 alias vi='nvim'
 
 # enable color support of ls and also add handy aliases
@@ -35,6 +36,7 @@ alias drmi='docker rmi $(docker images -aq)'
 
 # Kubernetes
 alias kb='kubectl'
+alias kbd='kubectl run debug-pod --rm -it --image=sat599/debugger:latest --restart=Never -- bash'
 
 # DevOps
 alias tf='terraform'
