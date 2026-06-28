@@ -60,3 +60,8 @@
 
 [diff]
   colorMoved = default
+
+[url "ssh://git@ssh.github.com:443/"]
+  insteadOf = ssh://git@github.com/
+[url "git@github.com:"]
+  insteadOf = https://github.com/
