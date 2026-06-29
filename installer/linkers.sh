@@ -38,3 +38,6 @@ create_link_with_backup "./.bash_functions"
 
 # Setup nvim config directory
 ln -s "$PWD/nvim" ~/.config/nvim
+
+# Setup k9s config directory
+ln -s "$PWD/.config/k9s" ~/.config/k9s

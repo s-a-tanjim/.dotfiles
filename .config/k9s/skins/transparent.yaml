@@ -1,0 +1,86 @@
+# Transparent skin — inherits your terminal's background (bgColor: default)
+# so k9s blends with whatever terminal theme you use.
+k9s:
+  body:
+    fgColor: &fg default
+    bgColor: &bg default
+    logoColor: blue
+    logoColorMsg: red
+  prompt:
+    fgColor: *fg
+    bgColor: *bg
+    suggestColor: orange
+  info:
+    fgColor: orange
+    sectionColor: *fg
+  dialog:
+    fgColor: *fg
+    bgColor: *bg
+    buttonFgColor: *fg
+    buttonBgColor: mediumpurple
+    buttonFocusFgColor: yellow
+    buttonFocusBgColor: dodgerblue
+    labelFgColor: orange
+    fieldFgColor: *fg
+  frame:
+    border:
+      fgColor: dodgerblue
+      focusColor: cornflowerblue
+    menu:
+      fgColor: *fg
+      keyColor: mediumpurple
+      numKeyColor: mediumpurple
+    crumbs:
+      fgColor: *bg
+      bgColor: cornflowerblue
+      activeColor: orange
+    status:
+      newColor: lightskyblue
+      modifyColor: mediumpurple
+      addColor: lightgreen
+      errorColor: indianred
+      highlightColor: orange
+      killColor: mediumpurple
+      completedColor: gray
+    title:
+      fgColor: aqua
+      bgColor: *bg
+      highlightColor: orange
+      counterColor: mediumpurple
+      filterColor: mediumpurple
+  views:
+    charts:
+      bgColor: default
+      defaultDialColors:
+        - cornflowerblue
+        - indianred
+      defaultChartColors:
+        - cornflowerblue
+        - indianred
+    table:
+      fgColor: *fg
+      bgColor: *bg
+      cursorFgColor: black
+      cursorBgColor: aqua
+      header:
+        fgColor: *fg
+        bgColor: *bg
+        sorterColor: aqua
+    xray:
+      fgColor: *fg
+      bgColor: *bg
+      cursorColor: aqua
+      graphicColor: mediumpurple
+      showIcons: false
+    yaml:
+      keyColor: mediumpurple
+      colonColor: blue
+      valueColor: *fg
+    logs:
+      fgColor: *fg
+      bgColor: *bg
+      indicator:
+        fgColor: *fg
+        bgColor: *bg
+        toggleOnColor: lightgreen
+        toggleOffColor: gray
