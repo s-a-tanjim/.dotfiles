@@ -22,6 +22,7 @@ check_and_install_dep zsh
 check_and_install_dep xclip
 check_and_install_dep tmux
 check_and_install_dep fzf
+check_and_install_dep git-delta
 
 # Configure zsh
 export RUNZSH=no
