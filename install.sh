@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Run from the repo root so the relative paths in the installers resolve
+cd "$(dirname "$0")" || exit 1
+
 # Check if the OS is Ubuntu using /etc/os-release
 if [[ -f /etc/os-release ]]; then
   . /etc/os-release

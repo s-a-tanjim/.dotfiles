@@ -13,6 +13,7 @@ check_and_install_dep() {
   fi
 }
 
+sudo apt update
 check_and_install_dep build-essential
 check_and_install_dep git
 check_and_install_dep curl
@@ -28,12 +29,21 @@ check_and_install_dep git-delta
 export RUNZSH=no
 export CHSH=yes
 export KEEP_ZSHRC=yes
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mkdir -p $HOME/.oh-my-zsh/custom/plugins
-git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone --depth 1 https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+[ -d "$HOME/.oh-my-zsh" ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+clone_if_missing() {
+  [ -d "$2" ] || git clone --depth 1 "$1" "$2"
+}
+
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+mkdir -p "$ZSH_CUSTOM/plugins"
+clone_if_missing https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+clone_if_missing https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+clone_if_missing https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+clone_if_missing https://github.com/joshskidmore/zsh-fzf-history-search "$ZSH_CUSTOM/plugins/zsh-fzf-history-search"
+
+# Vim plugin manager (run :PluginInstall in vim afterwards)
+clone_if_missing https://github.com/gmarik/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 
 # Install kubectl autocomplete
 if [ -x "$(command -v kubectl)" ]; then
@@ -42,6 +52,13 @@ if [ -x "$(command -v kubectl)" ]; then
 fi
 
 # Install neovim
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+nvim_tar="$(mktemp)"
+curl -fLo "$nvim_tar" https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz &&
+  sudo rm -rf /opt/nvim-linux-x86_64 &&
+  sudo tar -C /opt -xzf "$nvim_tar"
+rm -f "$nvim_tar"
+
+# Install fonts (MesloLGS NF, used by powerlevel10k)
+mkdir -p ~/.local/share/fonts
+cp fonts/*.ttf ~/.local/share/fonts/
+fc-cache -f

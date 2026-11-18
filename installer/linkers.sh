@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # This script creates a symbolic link in the home directory to a specified file.
 
@@ -17,8 +17,14 @@ create_link_with_backup() {
   filename=$(basename "$target_file")
   home_link="$HOME/$filename"
 
+  # Already linked to this repo: nothing to do (keeps the original .bak intact)
+  if [ "$(readlink "$home_link")" = "$(realpath "$target_file")" ]; then
+    echo "'$home_link' already linked."
+    return 0
+  fi
+
   # If a file/link already exists in the home directory, move it to a .bak
-  if [ -e "$home_link" ]; then
+  if [ -e "$home_link" ] || [ -L "$home_link" ]; then
     mv "$home_link" "$home_link.bak"
     echo "Existing file/link moved to '$home_link.bak'"
   fi
@@ -36,8 +42,10 @@ create_link_with_backup "./.p10k.zsh"
 create_link_with_backup "./.vimrc"
 create_link_with_backup "./.bash_functions"
 
-# Setup nvim config directory
-ln -s "$PWD/nvim" ~/.config/nvim
+mkdir -p ~/.config
+
+# Setup nvim config directory (-n: replace an existing link instead of nesting inside it)
+ln -sfn "$PWD/nvim" ~/.config/nvim
 
 # Setup k9s config directory
-ln -s "$PWD/.config/k9s" ~/.config/k9s
+ln -sfn "$PWD/.config/k9s" ~/.config/k9s
