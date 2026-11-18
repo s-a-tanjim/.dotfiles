@@ -3,7 +3,6 @@
 #################
 
 # Basics
-alias py2='python2'
 alias py='python3'
 alias cls='clear'
 alias ll='ls -alF'
@@ -13,6 +12,13 @@ alias ips='ip -br -c a'
 alias myip='echo $(curl -s ifconfig.me)'
 alias myip4='echo $(curl -4 -s ifconfig.me)'
 alias vi='nvim'
+alias ai-usage='npx ccusage@latest'
+
+# Random number generator
+rand() {
+    local len="${1:-32}"
+    LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c "$len"; echo
+}
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -31,8 +37,8 @@ fi
 alias d='docker'
 alias dc='docker compose'
 alias ds='docker stop $(docker ps -aq)'
-alias drm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
-alias drmi='docker rmi $(docker images -aq)'
+alias drm='docker container prune'   # stopped containers only, asks first
+alias drmi='docker image prune -a'    # unused images only, asks first
 
 # Kubernetes
 alias kb='kubectl'

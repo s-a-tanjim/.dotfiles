@@ -30,14 +30,7 @@ export AWS_SECRET_ACCESS_KEY=$(echo $OUTPUT | jq --raw-output .Credentials.Secre
 export AWS_SESSION_TOKEN=$(echo $OUTPUT | jq --raw-output .Credentials.SessionToken)
 export AWS_TOKEN_EXPIRATION=$(echo $OUTPUT | jq --raw-output .Credentials.Expiration)
 
-echo -e '\nAWSAccessKeyID: '
-echo $AWS_ACCESS_KEY_ID
-echo -e '\nAWSSecretAccessKey: '
-echo $AWS_SECRET_ACCESS_KEY
-echo -e '\nAWSSessionToken: '
-echo $AWS_SESSION_TOKEN
-echo -e '\nAWSTokenExpiration: '
-echo $AWS_TOKEN_EXPIRATION
+echo "Session token expires: $AWS_TOKEN_EXPIRATION"
 
 aws configure set region $AWS_REGION --profile $PROFILE
 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile $PROFILE

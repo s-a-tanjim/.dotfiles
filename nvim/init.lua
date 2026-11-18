@@ -8,7 +8,7 @@ require('config.lazy')
 -- Load plugin config
 require('plugins.telescope')
 require('plugins.treesitter')
-require('plugins.lsp-zero')
+require('plugins.lsp')
 require('plugins.tokyonight')
 require('plugins.nvim-tree')
 require('plugins.bufferline')

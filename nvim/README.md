@@ -13,7 +13,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # Plugins
 - telescope: File finder
 - treesitter: Syntax highlighting
-- lsp-zero: LSP server
+- nvim-lspconfig + nvim-cmp: LSP (native `vim.lsp`, see `lua/plugins/lsp.lua`)
 - tokyonight: ColorScheme
 - nvim-tree: File tree in side menu
 - bufferline: Tabs
@@ -34,7 +34,5 @@ ln -s ~/<base-path>/dotfiles/nvim ~/.config/nvim
 
 
 # TODO
-Add LSP
-- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v4.x/doc/md/guides/lazy-loading-with-lazy-nvim.md
 - https://github.com/williamboman/mason.nvim
 

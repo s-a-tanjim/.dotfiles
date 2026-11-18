@@ -1,7 +1,6 @@
 [user]
-  email = shoebtanjim@outlook.com
   name = s-a-tanjim
-  signingkey = FBFA9DA733EB0E7C
+  # email and signingkey are per machine: see ~/.gitconfig.local (included at the bottom)
 
 [alias]
   lt = log --graph --oneline --decorate
@@ -28,9 +27,6 @@
   subup = submodule update --init --recursive
   staash = stash --all
 
-[credential]
-  helper = store
-
 [commit]
   gpgsign = true
 [column]
@@ -56,12 +52,21 @@
   hyperlinks-file-link-format = "vscode://file/{path}:{line}"
 
 [merge]
-  conflictstyle = diff3
+  conflictstyle = zdiff3
 
 [diff]
   colorMoved = default
+  algorithm = histogram
 
-[url "ssh://git@ssh.github.com:443/"]
-  insteadOf = ssh://git@github.com/
-[url "git@github.com:"]
-  insteadOf = https://github.com/
+[push]
+  autoSetupRemote = true
+[fetch]
+  prune = true
+[pull]
+  rebase = true
+[init]
+  defaultBranch = main
+
+# Machine-specific settings (user.email, user.signingkey). Keep last so it wins.
+[include]
+  path = ~/.gitconfig.local

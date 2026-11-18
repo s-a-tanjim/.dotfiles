@@ -1,29 +1,7 @@
 #!/bin/bash
 
-check_and_install_dep() {
-  # Parameter: dependency name
-  local dep_name=$1
-
-  # Check if the dependency is installed
-  if dpkg -l | grep -q "^ii  $dep_name "; then
-    echo "$dep_name is already installed."
-  else
-    echo "$dep_name is not installed. Installing..."
-    sudo apt install -y "$dep_name"
-  fi
-}
-
 sudo apt update
-check_and_install_dep build-essential
-check_and_install_dep git
-check_and_install_dep curl
-check_and_install_dep htop
-check_and_install_dep net-tools
-check_and_install_dep zsh
-check_and_install_dep xclip
-check_and_install_dep tmux
-check_and_install_dep fzf
-check_and_install_dep git-delta
+sudo apt install -y build-essential git curl htop net-tools zsh xclip tmux fzf git-delta
 
 # Configure zsh
 export RUNZSH=no
@@ -44,12 +22,6 @@ clone_if_missing https://github.com/joshskidmore/zsh-fzf-history-search "$ZSH_CU
 
 # Vim plugin manager (run :PluginInstall in vim afterwards)
 clone_if_missing https://github.com/gmarik/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-
-# Install kubectl autocomplete
-if [ -x "$(command -v kubectl)" ]; then
-  mkdir -p ~/.oh-my-zsh/custom/plugins/kubectl-autocomplete/
-  kubectl completion zsh > ~/.oh-my-zsh/custom/plugins/kubectl-autocomplete/kubectl-autocomplete.plugin.zsh
-fi
 
 # Install neovim
 nvim_tar="$(mktemp)"
