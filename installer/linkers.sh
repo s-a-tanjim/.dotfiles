@@ -47,5 +47,12 @@ mkdir -p ~/.config
 # Setup nvim config directory (-n: replace an existing link instead of nesting inside it)
 ln -sfn "$PWD/nvim" ~/.config/nvim
 
+# Setup htop config (htop rewrites this file whenever its settings change)
+mkdir -p ~/.config/htop
+if [ -e ~/.config/htop/htoprc ] && [ ! -L ~/.config/htop/htoprc ]; then
+  mv ~/.config/htop/htoprc ~/.config/htop/htoprc.bak
+fi
+ln -sfn "$PWD/.config/htop/htoprc" ~/.config/htop/htoprc
+
 # Setup k9s config directory
 ln -sfn "$PWD/.config/k9s" ~/.config/k9s

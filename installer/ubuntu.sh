@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y build-essential git curl htop net-tools zsh xclip tmux fzf git-delta
+sudo apt install -y build-essential git curl htop net-tools zsh xclip tmux fzf git-delta ripgrep jq vim
 
 # Configure zsh
 export RUNZSH=no

@@ -10,6 +10,13 @@ if [[ -f /etc/os-release ]]; then
     echo "Ubuntu detected. Running ubuntu installer..."
     ./installer/ubuntu.sh
     ./installer/linkers.sh
+
+    # tmux plugins (after linkers.sh: install_plugins reads ~/.tmux.conf)
+    [ -d ~/.tmux/plugins/tpm ] || git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    ~/.tmux/plugins/tpm/bin/install_plugins
+
+    # vim plugins (after linkers.sh: Vundle reads ~/.vimrc)
+    vim +PluginInstall +qall
   else
     echo "OS not supported."
   fi
