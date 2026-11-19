@@ -37,8 +37,8 @@ fi
 alias d='docker'
 alias dc='docker compose'
 alias ds='docker stop $(docker ps -aq)'
-alias drm='docker container prune'   # stopped containers only, asks first
-alias drmi='docker image prune -a'    # unused images only, asks first
+alias drm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
+alias drmi='docker rmi $(docker images -aq)'
 
 # Kubernetes
 alias kb='kubectl'
