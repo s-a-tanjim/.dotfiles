@@ -4,8 +4,6 @@ syntax enable
 " Dracula
 " packadd! dracula
 " colorscheme dracula
-colorscheme lucario
-
 set encoding=UTF-8
 
 " Disable compatibility with vi which can cause unexpected issues.
@@ -147,10 +145,14 @@ Plugin 'gmarik/Vundle.vim'
 " Add Plugin here
 
 Plugin 'scrooloose/nerdtree'
+Plugin 'raphamorim/lucario'
 
 " Plugin ends
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" silent!: not installed yet on the first PluginInstall run
+silent! colorscheme lucario
 
 
 " Start NERDTree and put the cursor back in the other window.

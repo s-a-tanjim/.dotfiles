@@ -1,11 +1,10 @@
 # Nvim installation
-Ref: https://github.com/neovim/neovim/blob/master/INSTALL.md
-```sh
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-```
+The repository's `./install.sh` installs the latest stable Neovim release
+and adds `/opt/nvim/bin` to the Zsh PATH.
+Preview changes first with `./install.sh --dry-run`. See the root README for
+backup behavior and the complete machine setup.
+
+Upstream installation reference: https://github.com/neovim/neovim/blob/master/INSTALL.md
 
 # Dependencies
 - Lazy: Plugin manager

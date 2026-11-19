@@ -1,0 +1,7 @@
+# Copy to ~/.zshrc.local. This file is loaded after the shared configuration.
+# Machine-specific applications can be overridden here.
+# alias record="$HOME/apps/Recordly-linux-x64.AppImage"
+
+# Match your actual production context/profile names when changing these patterns.
+# typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=('*production*' PROD '*' DEFAULT)
+# typeset -g POWERLEVEL9K_AWS_CLASSES=('*production*' PROD '*' DEFAULT)

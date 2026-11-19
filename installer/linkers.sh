@@ -1,58 +1,58 @@
 #!/bin/bash
 
-# This script creates a symbolic link in the home directory to a specified file.
+# Shared by the installer and dot doctor so their expected links cannot drift.
+dotfiles_links() {
+  local repo=$1 file config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
+  for file in .zshrc .bash_aliases .tmux.conf .gitconfig .p10k.zsh .vimrc .bash_functions; do
+    printf '%s\t%s\n' "$repo/$file" "$HOME/$file"
+  done
+  printf '%s\t%s\n' \
+    "$repo/nvim" "$config_dir/nvim" \
+    "$repo/.config/htop/htoprc" "$config_dir/htop/htoprc" \
+    "$repo/.config/k9s" "$config_dir/k9s"
+}
 
 create_link_with_backup() {
-  local target_file="$1"
-  local filename
-  local home_link
-
-  # Check if the file exists
-  if [ ! -f "$target_file" ]; then
-    echo "Error: File '$target_file' does not exist."
-    return 1
-  fi
-
-  # Extract just the filename
-  filename=$(basename "$target_file")
-  home_link="$HOME/$filename"
-
-  # Already linked to this repo: nothing to do (keeps the original .bak intact)
-  if [ "$(readlink "$home_link")" = "$(realpath "$target_file")" ]; then
-    echo "'$home_link' already linked."
+  local target_file=$1 home_link=$2 dry_run=${3:-} backup='' suffix=0
+  target_file=$(realpath -e -- "$target_file") || return 1
+  if [[ -L $home_link && $(readlink -f -- "$home_link") == "$target_file" ]]; then
+    printf 'Already linked: %s\n' "$home_link"
     return 0
   fi
 
-  # If a file/link already exists in the home directory, move it to a .bak
-  if [ -e "$home_link" ] || [ -L "$home_link" ]; then
-    mv "$home_link" "$home_link.bak"
-    echo "Existing file/link moved to '$home_link.bak'"
+  if [[ -e $home_link || -L $home_link ]]; then
+    backup="$home_link.bak.$(date -u +%Y%m%dT%H%M%S).$$"
+    while [[ -e $backup || -L $backup ]]; do
+      suffix=$((suffix + 1))
+      backup="$home_link.bak.$(date -u +%Y%m%dT%H%M%S).$$.$suffix"
+    done
+  fi
+  if [[ $dry_run == --dry-run ]]; then
+    [[ -z $backup ]] || printf 'Would back up: %s -> %s\n' "$home_link" "$backup"
+    printf 'Would link: %s -> %s\n' "$home_link" "$target_file"
+    return 0
   fi
 
-  # Create symbolic link
-  ln -s "$(realpath "$target_file")" "$home_link"
-  echo "Symbolic link created at '$home_link'"
+  mkdir -p -- "$(dirname -- "$home_link")" || return 1
+  if [[ -n $backup ]]; then
+    mv -T -- "$home_link" "$backup" || return 1
+    printf 'Backed up: %s\n' "$backup"
+  fi
+  if ! ln -sT -- "$target_file" "$home_link"; then
+    [[ -z $backup ]] || mv -T -- "$backup" "$home_link"
+    return 1
+  fi
+  printf 'Linked: %s -> %s\n' "$home_link" "$target_file"
 }
 
-create_link_with_backup "./.zshrc"
-create_link_with_backup "./.bash_aliases"
-create_link_with_backup "./.tmux.conf"
-create_link_with_backup "./.gitconfig"
-create_link_with_backup "./.p10k.zsh"
-create_link_with_backup "./.vimrc"
-create_link_with_backup "./.bash_functions"
-
-mkdir -p ~/.config
-
-# Setup nvim config directory (-n: replace an existing link instead of nesting inside it)
-ln -sfn "$PWD/nvim" ~/.config/nvim
-
-# Setup htop config (htop rewrites this file whenever its settings change)
-mkdir -p ~/.config/htop
-if [ -e ~/.config/htop/htoprc ] && [ ! -L ~/.config/htop/htoprc ]; then
-  mv ~/.config/htop/htoprc ~/.config/htop/htoprc.bak
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  set -euo pipefail
+  if (( $# > 1 )) || [[ ${1:-} != '' && ${1:-} != --dry-run ]]; then
+    echo 'Usage: installer/linkers.sh [--dry-run]' >&2
+    exit 2
+  fi
+  repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
+  while IFS=$'\t' read -r source_file destination; do
+    create_link_with_backup "$source_file" "$destination" "${1:-}"
+  done < <(dotfiles_links "$repo")
 fi
-ln -sfn "$PWD/.config/htop/htoprc" ~/.config/htop/htoprc
-
-# Setup k9s config directory
-ln -sfn "$PWD/.config/k9s" ~/.config/k9s

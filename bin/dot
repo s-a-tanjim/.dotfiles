@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P) || exit 1
+if [[ ${1:-} != doctor || $# != 1 ]]; then
+  echo 'Usage: dot doctor'
+  echo 'Check dependencies, config links and Git identity without changing anything.'
+  [[ $# == 0 || ${1:-} == --help ]] && exit 0
+  exit 2
+fi
+
+failures=0
+ok() { printf 'OK    %s\n' "$*"; }
+warn() { printf 'WARN  %s\n' "$*"; }
+fail() { printf 'FAIL  %s\n' "$*"; failures=$((failures + 1)); }
+
+for tool in git zsh tmux fzf nvim rg delta xclip; do
+  if command -v "$tool" >/dev/null 2>&1; then
+    ok "$tool is available"
+  else
+    fail "$tool is missing; run ./install.sh from $repo"
+  fi
+done
+
+source "$repo/installer/linkers.sh"
+while IFS=$'\t' read -r source_file destination; do
+  if [[ -L $destination && $(readlink -f -- "$destination") == "$source_file" ]]; then
+    ok "$destination"
+  else
+    fail "$destination is missing or points elsewhere; run $repo/installer/linkers.sh"
+  fi
+done < <(dotfiles_links "$repo")
+
+zsh_custom=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+for dependency in "$HOME/.oh-my-zsh/oh-my-zsh.sh" \
+  "$zsh_custom/themes/powerlevel10k/powerlevel10k.zsh-theme" \
+  "$zsh_custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" \
+  "$zsh_custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh" \
+  "$zsh_custom/plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh" \
+  "$HOME/.tmux/plugins/tpm/tpm"; do
+  if [[ -r $dependency ]]; then
+    ok "$dependency"
+  else
+    fail "$dependency is missing; run ./install.sh from $repo"
+  fi
+done
+
+if command -v git >/dev/null 2>&1; then
+  for setting in user.name user.email; do
+    if [[ -n $(git config --global --includes --get "$setting" 2>/dev/null) ]]; then
+      ok "Git $setting is configured"
+    else
+      fail "Git $setting is missing; set it in ~/.gitconfig.local"
+    fi
+  done
+  if [[ $(git config --global --includes --get --bool commit.gpgsign 2>/dev/null) == true ]]; then
+    if [[ -n $(git config --global --includes --get user.signingkey 2>/dev/null) ]]; then
+      ok 'Git signing key is configured (key availability was not checked)'
+    else
+      warn 'Git signing is enabled without an explicit user.signingkey; configure one in ~/.gitconfig.local if the default key cannot sign'
+    fi
+    signing_format=$(git config --global --includes --get gpg.format 2>/dev/null || true)
+    case "$signing_format" in
+      ssh) signing_tool=ssh-keygen ;;
+      x509) signing_tool=gpgsm ;;
+      *) signing_tool=$(git config --global --includes --get gpg.program 2>/dev/null || echo gpg) ;;
+    esac
+    signing_tool=$(git config --global --includes --get "gpg.${signing_format:-openpgp}.program" 2>/dev/null || printf '%s' "$signing_tool")
+    if command -v "$signing_tool" >/dev/null 2>&1; then
+      ok "Signing command $signing_tool is available"
+    else
+      fail "Signing command $signing_tool is missing; install it or correct your Git signing configuration"
+    fi
+  fi
+fi
+
+for tool in gleam ocamllsp; do
+  command -v "$tool" >/dev/null 2>&1 || warn "$tool is configured in Neovim but missing; install it if you edit that language"
+done
+for tool in kubectl kubectx kubens aws; do
+  command -v "$tool" >/dev/null 2>&1 || warn "$tool is optional; install it to use the Kubernetes/AWS helpers"
+done
+[[ -r $HOME/.zshrc.local ]] || warn 'No ~/.zshrc.local; optionally copy example/.zshrc.local.example for machine-specific overrides'
+printf '\n%d required check(s) failed.\n' "$failures"
+(( failures == 0 ))

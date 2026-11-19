@@ -42,6 +42,8 @@ alias drmi='docker image prune -a'    # unused images only, asks first
 
 # Kubernetes
 alias kb='kubectl'
+alias kctx='kubectx'
+alias kns='kubens'
 alias kbd='kubectl run debug-pod --rm -it --image=sat599/debugger:latest --restart=Never -- bash'
 
 # DevOps

@@ -1,23 +1,22 @@
 # Dotfiles
 
-## New device setup (Ubuntu)
+## Setup (Ubuntu)
 
 ```sh
-# 1. Clone
 git clone https://github.com/s-a-tanjim/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-
-# 2. Install packages, oh-my-zsh + plugins, neovim, fonts, and symlink configs
+./install.sh --dry-run  # Preview changes
 ./install.sh
-
-# 3. Log out and back in for zsh to become the default shell
 ```
 
-Then select `MesloLGS NF` as the font in the terminal profile.
+Log out and back in, then select `MesloLGS NF` as your terminal font.
+Existing configs are backed up before linking.
 
-Existing dotfiles in `$HOME` are backed up as `<name>.bak`.
+Windows: see [win/README.md](win/README.md).
 
-Git identity is per machine. Create `~/.gitconfig.local`:
+## Local settings
+
+Create `~/.gitconfig.local`:
 
 ```ini
 [user]
@@ -25,4 +24,14 @@ Git identity is per machine. Create `~/.gitconfig.local`:
   signingkey = <gpg key id>
 ```
 
-Windows: see [win/README.md](win/README.md).
+For shell overrides, copy `example/.zshrc.local.example` to `~/.zshrc.local`.
+It loads last; open a new terminal after editing it.
+
+After `p10k configure`, run `exec zsh` to reload the prompt overrides kept in `.zshrc`.
+
+## Helpers
+
+- `dot doctor` — check dependencies, config links, and Git settings.
+- `awsprofile` — pick an AWS profile (requires AWS CLI and fzf).
+
+Tests: `python3 -B -m unittest discover -s tests -v`.

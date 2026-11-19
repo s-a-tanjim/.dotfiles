@@ -1,2 +1,4 @@
 local
 .netrwhist
+.zshrc.local
+.gitconfig.local
