@@ -36,7 +36,7 @@ source $ZSH/oh-my-zsh.sh
 export DOTFILES_DIR=${${(%):-%x}:A:h}
 export EDITOR=nvim
 export GPG_TTY=$(tty)
-export PATH="$HOME/.opencode/bin:$PATH:/opt/nvim/bin"
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PATH:/opt/nvim/bin"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 [[ ! -f ~/.bash_aliases ]] || source ~/.bash_aliases

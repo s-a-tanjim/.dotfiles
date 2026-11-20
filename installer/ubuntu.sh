@@ -8,14 +8,15 @@ if (( $# > 1 )) || [[ ${1:-} != '' && ${1:-} != --dry-run ]]; then
 fi
 packages=(build-essential git curl htop net-tools zsh xclip tmux fzf git-delta ripgrep jq vim fontconfig)
 case "$(uname -m)" in
-  x86_64) nvim_archive=nvim-linux-x86_64 ;;
-  aarch64|arm64) nvim_archive=nvim-linux-arm64 ;;
+  x86_64) nvim_archive=nvim-linux-x86_64 tree_sitter_archive=tree-sitter-linux-x64 ;;
+  aarch64|arm64) nvim_archive=nvim-linux-arm64 tree_sitter_archive=tree-sitter-linux-arm64 ;;
   *) echo 'Unsupported architecture for the Neovim binary.' >&2; exit 1 ;;
 esac
 if [[ ${1:-} == --dry-run ]]; then
   printf 'Would install Ubuntu packages: %s\n' "${packages[*]}"
   echo 'Would install missing Oh My Zsh, shell plugins and Vundle; select zsh as the login shell.'
   printf 'Would install the latest stable Neovim release (%s) to /opt/nvim, replacing an existing installation.\n' "$nvim_archive"
+  printf 'Would install the latest tree-sitter CLI (%s) to /usr/local/bin/tree-sitter.\n' "$tree_sitter_archive"
   echo 'Would install MesloLGS NF fonts and refresh the font cache.'
   exit 0
 fi
@@ -58,6 +59,13 @@ sudo rm -rf -- "$nvim_destination"
 sudo mv -T -- "$download_dir/$nvim_archive" "$nvim_destination"
 # The archive was extracted as the current user; binaries on PATH belong to root.
 sudo chown -R root:root -- "$nvim_destination"
+
+# tree-sitter CLI: nvim-treesitter needs >= 0.26.1 to build parsers (apt's is older).
+curl -fL "https://github.com/tree-sitter/tree-sitter/releases/latest/download/$tree_sitter_archive.gz" -o "$download_dir/tree-sitter.gz"
+gunzip "$download_dir/tree-sitter.gz"
+chmod +x "$download_dir/tree-sitter"
+"$download_dir/tree-sitter" --version >/dev/null
+sudo install -o root -g root -m 755 "$download_dir/tree-sitter" /usr/local/bin/tree-sitter
 
 # Install fonts (MesloLGS NF, used by powerlevel10k)
 mkdir -p ~/.local/share/fonts

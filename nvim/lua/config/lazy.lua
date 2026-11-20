@@ -32,7 +32,7 @@ require("lazy").setup({
   		priority = 1000,
   		opts = {},
 		},
-    {'nvim-treesitter/nvim-treesitter'},
+    {'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate'},
     {
       "nvim-tree/nvim-tree.lua",
       version = "*",
@@ -78,5 +78,7 @@ require("lazy").setup({
   -- install = { colorscheme = { "habamax" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
+  -- No plugin needs luarocks
+  rocks = { enabled = false },
 })
 

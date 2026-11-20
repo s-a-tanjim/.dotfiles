@@ -2,3 +2,4 @@ local
 .netrwhist
 .zshrc.local
 .gitconfig.local
+__pycache__
